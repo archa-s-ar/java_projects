@@ -4,9 +4,10 @@ package bank_management_system;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 
-
-public class SignUpThree extends JFrame{
+public class SignUpThree extends JFrame implements ActionListener{
     
     JRadioButton r1,r2,r3,r4;
     JCheckBox c1,c2,c3,c4,c5,c6,c7;
@@ -96,7 +97,7 @@ public class SignUpThree extends JFrame{
         services.setBounds(140,390,250,30); 
         add(services);
         
-        c1 = new JCheckBox("ATM CARD");
+        c1 = new JCheckBox("ATM Card");
         c1.setFont(new Font("Raleway",Font.BOLD,16));
         c1.setBackground(Color.WHITE);
         c1.setBounds(140,430,130,30);
@@ -143,12 +144,14 @@ public class SignUpThree extends JFrame{
         submit.setBackground(Color.BLACK);
         submit.setForeground(Color.WHITE);
         submit.setBounds(300,600,100,30);
+        submit.addActionListener(this);
         add(submit);
                 
         cancel= new JButton("CANCEL");
         cancel.setBackground(Color.BLACK);
         cancel.setForeground(Color.WHITE);
         cancel.setBounds(450,600,100,30);
+        cancel.addActionListener(this);
         add(cancel);
         
         //frame
@@ -159,7 +162,63 @@ public class SignUpThree extends JFrame{
         setVisible(true);
         
     }
+    public void actionPerformed(ActionEvent ae){
+        if(ae.getSource()==submit){
+            String accountType=null;
+            if(r1.isSelected()){
+                accountType="Saving Account";
+            }
+            else if (r2.isSelected()){
+                accountType= "Fixed Deposit Account";
+            }
+            else if (r3.isSelected()){
+                accountType="Current Account";
+            }
+            else if (r4.isSelected()){
+                accountType="Recurring Deposit Account";
+            }
+          
+            Random random=new Random();
+            String cardno = ""+Math.abs((random.nextLong()%90000000L))+5040936000000000L;
+            String pinno = ""+Math.abs((random.nextLong() % 9000L))+1000L;
+            
+            String facility="";
+            if(c1.isSelected()){
+                facility=facility +" ATM Card";
+            }
+            else if (c2.isSelected()){
+                facility=facility +" Internet Banking";
+            }
+            else if (c3.isSelected()){
+                facility=facility +" E-mail & SMS Alerts";
+            }
+            else if (c4.isSelected()){
+                facility=facility +" Mobile Banking";
+            }
+            else if (c5.isSelected()){
+                facility=facility +" Cheque Book";
+            }
+            else if (c6.isSelected()){
+                facility=facility +" E-statement";
+            }
+            try{
+                if (accountType.equals("")){
+                    JOptionPane.showMessageDialog(null, "Account Type is Required");
+                }
+                else{
+                    Conn c=new Conn();
+                    String query1= insert into signupthree values('"+formno+"','"+account+"')";
+                }
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if (ae.getSource()==cancel){
+        
+        }
     
+    }
     public static void main (String args[]){
         new SignUpThree();
 }
