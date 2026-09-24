@@ -3,8 +3,11 @@ package bank_management_system;
 
 import javax.swing.*;
 import java.awt.*; //for image class
+import java.awt.event.*;
 
-public class Login extends JFrame{
+public class Login extends JFrame implements ActionListener{
+    JTextField cardTextField,pinTextField;
+    JButton login,clear,signup;
     
     Login(){
         setTitle("AUTOMATED TELLER MACHINE");
@@ -31,11 +34,11 @@ public class Login extends JFrame{
         cardno.setBounds(120,150,150,40);
         add(cardno);
         
-        JTextField cardTextField=new JTextField();
+        cardTextField=new JTextField();
         cardTextField.setBounds(300,150,230,30);
         add(cardTextField);
         
-        JTextField pinTextField=new JTextField();
+        pinTextField=new JTextField();
         pinTextField.setBounds(300,220,230,30);
         add(pinTextField);        
         
@@ -44,22 +47,23 @@ public class Login extends JFrame{
         pin.setBounds(120,220,250,30);
         add(pin);
         
-        JButton login=new JButton("SIGN IN");
+        login=new JButton("SIGN IN");
         login.setBounds(300,300,100,30);
         login.setBackground(Color.BLACK);
         login.setForeground(Color.WHITE);
         add(login);
         
-        JButton clear=new JButton("CLEAR");
+        clear=new JButton("CLEAR");
         clear.setBounds(430,300,100,30);
         clear.setBackground(Color.BLACK);
         clear.setForeground(Color.WHITE);
         add(clear);
         
-        JButton signup=new JButton("SIGN UP");
+        signup=new JButton("SIGN UP");
         signup.setBounds(300,350,230,30);
         signup.setBackground(Color.BLACK);
         signup.setForeground(Color.WHITE);
+        signup.addActionListener(this);
         add(signup);
         
         getContentPane().setBackground(Color.WHITE); //to select whole frame
@@ -71,6 +75,19 @@ public class Login extends JFrame{
         
         
     }
+    
+    public void actionPerformed(ActionEvent ae){
+        if (ae.getSource()==clear){
+            cardTextField.setText("");
+            pinTextField.setText("");
+        }else if(ae.getSource()==login){
+        
+        }else if(ae.getSource()==signup){
+            setVisible(false);
+            new SignUpOne().setVisible(true);
+        }
+    }
+    
     public static void main(String args[]){
         new Login();
     }
